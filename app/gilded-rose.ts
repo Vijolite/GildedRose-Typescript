@@ -22,10 +22,14 @@ export class GildedRose {
             if (this.items[i].name !='Sulfuras, Hand of Ragnaros') {
                 this.items[i].sellIn--
 
-                let qualityDegradation=(this.items[i].name !='Conjured')?1:2;
-                let timesBy=(this.items[i].name ==='Aged Brie'||this.items[i].name ==='Backstage passes to a TAFKAL80ETC concert')?1:(-1)
+                let conjured=(this.items[i].name.startsWith('Conjured'))?true:false;
+                let itemRealName=(conjured)?this.items[i].name.substring(8,this.items[i].name.length).trimStart():this.items[i].name
 
-                if (this.items[i].name ==='Backstage passes to a TAFKAL80ETC concert')
+                let qualityDegradation=1;
+
+                let timesBy=(itemRealName ==='Aged Brie'||itemRealName ==='Backstage passes to a TAFKAL80ETC concert')?1:(-1)
+
+                if (itemRealName ==='Backstage passes to a TAFKAL80ETC concert')
                     if (this.items[i].sellIn<=0)
                         qualityDegradation=(-1)*this.items[i].quality
                         else 
@@ -34,14 +38,18 @@ export class GildedRose {
                             else if (this.items[i].sellIn<=10)
                                     qualityDegradation=2
 
-                if (this.items[i].sellIn<0)
-                    qualityDegradation*=2
+                if (this.items[i].sellIn<0) qualityDegradation*=2
+
+                if (conjured) qualityDegradation*=2
                
-                if (this.items[i].quality+qualityDegradation*timesBy>=0) 
-                    if (this.items[i].quality+qualityDegradation*timesBy<50) 
-                        this.items[i].quality=this.items[i].quality+qualityDegradation*timesBy
+                let newQuality =this.items[i].quality+qualityDegradation*timesBy
+                if (newQuality>=0) 
+                    if (newQuality<50) 
+                        this.items[i].quality=newQuality
                     else
                         this.items[i].quality=50
+                else
+                    this.items[i].quality=0
             }
         }
         return this.items;
@@ -62,11 +70,12 @@ export class GildedRose {
 //     new Item ("Backstage passes to a TAFKAL80ETC concert",5,20),
 //     new Item ("Backstage passes to a TAFKAL80ETC concert",5,48),
 //     new Item ("Backstage passes to a TAFKAL80ETC concert",1,49),
-//     new Item ("Conjured",6,10)
+//     new Item ("Conjured tea",6,10),
+//     new Item ("Conjured Aged Brie",30,20)
 // ]
 
 // const gr=new GildedRose(products)
-// console.log(gr.items)
+// gr.updateQuality()
 // gr.updateQuality()
 // gr.updateQuality()
 // console.log(gr.items)

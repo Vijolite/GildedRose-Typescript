@@ -55,7 +55,9 @@ describe('Gilded Rose', function () {
             new Item ("Backstage passes to a TAFKAL80ETC concert",5,20),
             new Item ("Backstage passes to a TAFKAL80ETC concert",5,48),
             new Item ("Backstage passes to a TAFKAL80ETC concert",1,49),
-            new Item ("Conjured",6,10)
+            new Item ("Conjured tea",6,10),
+            new Item ("Conjured Aged Brie",30,20),
+            new Item ("Muffin",7,2)
         ];
         const gr=new GildedRose(input_values)
         gr.updateQuality();
@@ -73,7 +75,9 @@ describe('Gilded Rose', function () {
             new Item ("Backstage passes to a TAFKAL80ETC concert",2,29),
             new Item ("Backstage passes to a TAFKAL80ETC concert",2,50),
             new Item ("Backstage passes to a TAFKAL80ETC concert",-2,0),
-            new Item ("Conjured",3,4)
+            new Item ("Conjured tea",3,4),
+            new Item ("Conjured Aged Brie",27,26),
+            new Item ("Muffin",4,0)
         ]
 
         expect(gr.items).to.deep.equal(expected_values);
